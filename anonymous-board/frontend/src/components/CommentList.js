@@ -24,7 +24,7 @@ const CommentList = ({ comments, updateCommentVotes }) => {
     <CommentsContainer>
       {comments.map(comment => (
         <CommentItem 
-          key={comment._id} 
+          key={comment.id} 
           comment={comment} 
           updateCommentVotes={updateCommentVotes} 
         />

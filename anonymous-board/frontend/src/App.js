@@ -69,7 +69,7 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/post/:id" element={<PostPage />} />
+          <Route path="/post/:postId" element={<PostPage />} />
         </Routes>
       </div>
     </Router>

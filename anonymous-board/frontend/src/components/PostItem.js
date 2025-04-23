@@ -51,12 +51,6 @@ const VoteButton = styled.button`
   justify-content: center;
 `;
 
-const VoteCount = styled.span`
-  font-weight: bold;
-  min-width: 30px;
-  text-align: center;
-`;
-
 const CommentsSection = styled.div`
   margin-top: 1rem;
   display: flex;
@@ -81,7 +75,7 @@ const PostItem = ({ post, updatePostVotes, showFullComments }) => {
       const fetchComments = async () => {
         setLoading(true);
         try {
-          const res = await axios.get(`${API_BASE_URL}/api/comments/post/${post._id}`);
+          const res = await axios.get(`${API_BASE_URL}/api/comments/post/${post.id}`);
           setComments(res.data);
         } catch (err) {
           console.error('Error fetching comments:', err);
@@ -92,12 +86,12 @@ const PostItem = ({ post, updatePostVotes, showFullComments }) => {
 
       fetchComments();
     }
-  }, [post._id, post.comments]);
+  }, [post.id, post.comments]);
 
   const handleVote = async (type) => {
     try {
-      const res = await axios.put(`${API_BASE_URL}/api/posts/${post._id}/${type}`);
-      updatePostVotes(post._id, res.data);
+      const res = await axios.put(`${API_BASE_URL}/api/posts/${post.id}/${type}`);
+      updatePostVotes(post.id, res.data);
     } catch (err) {
       console.error(`Error ${type}ing post:`, err);
     }
@@ -107,8 +101,8 @@ const PostItem = ({ post, updatePostVotes, showFullComments }) => {
     setComments([comment, ...comments]);
   };
 
-  const updateCommentVotes = (id, updatedComment) => {
-    setComments(comments.map(comment => comment._id === id ? updatedComment : comment));
+  const updateCommentVotes = (commentId, updatedComment) => {
+    setComments(comments.map(comment => comment.id === commentId ? updatedComment : comment));
   };
 
   const toggleComments = () => {
@@ -136,7 +130,7 @@ const PostItem = ({ post, updatePostVotes, showFullComments }) => {
       </PostMeta>
 
       <CommentsSection>
-        <CommentForm postId={post._id} addNewComment={addNewComment} />
+        <CommentForm postId={post.id} addNewComment={addNewComment} />
         
         {loading ? (
           <p>Loading comments...</p>

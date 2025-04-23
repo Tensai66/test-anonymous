@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 const CommentContainer = styled.div`
   background-color: var(--background-color);
@@ -46,17 +47,11 @@ const VoteButton = styled.button`
   justify-content: center;
 `;
 
-const VoteCount = styled.span`
-  font-weight: bold;
-  min-width: 25px;
-  text-align: center;
-`;
-
 const CommentItem = ({ comment, updateCommentVotes }) => {
   const handleVote = async (type) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/comments/${comment._id}/${type}`);
-      updateCommentVotes(comment._id, res.data);
+      const res = await axios.put(`${API_BASE_URL}/api/comments/${comment.id}/${type}`);
+      updateCommentVotes(comment.id, res.data);
     } catch (err) {
       console.error(`Error ${type}ing comment:`, err);
     }

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import PostItem from '../components/PostItem';
+import API_BASE_URL from '../config/api';
 
 const PostPageContainer = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const BackButton = styled.button`
 `;
 
 const PostPage = () => {
-  const { id } = useParams();
+  const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -26,7 +27,7 @@ const PostPage = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/posts/${id}`);
+        const res = await axios.get(`${API_BASE_URL}/api/posts/${postId}`);
         setPost(res.data.post);
         setLoading(false);
       } catch (err) {
@@ -36,7 +37,7 @@ const PostPage = () => {
     };
 
     fetchPost();
-  }, [id]);
+  }, [postId]);
 
   const updatePostVotes = (id, updatedPost) => {
     setPost(updatedPost);

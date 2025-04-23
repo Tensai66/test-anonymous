@@ -47,7 +47,7 @@ const HomePage = () => {
   };
 
   const updatePostVotes = (id, updatedPost) => {
-    setPosts(posts.map(post => post._id === id ? updatedPost : post));
+    setPosts(posts.map(post => post.id === id ? updatedPost : post));
   };
 
   if (loading) return <p>Loading posts...</p>;
@@ -60,7 +60,7 @@ const HomePage = () => {
       <PostsContainer>
         {posts.map(post => (
           <PostItem 
-            key={post._id} 
+            key={post.id} 
             post={post} 
             updatePostVotes={updatePostVotes}
             showFullComments={false}
